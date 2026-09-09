@@ -24,37 +24,37 @@ const sections: Section[] = [
         tag: '<h1>',
         description: 'Главный заголовок страницы. Должен быть один на странице.',
         example: '<h1>Заголовок страницы</h1>',
-        preview: '<h1 style="margin:0">Заголовок страницы</h1>',
+        preview: '<h1>Заголовок страницы</h1>',
       },
       {
         tag: '<h2>',
         description: 'Заголовок второго уровня. Используется для основных разделов.',
         example: '<h2>Раздел</h2>',
-        preview: '<h2 style="margin:0">Раздел</h2>',
+        preview: '<h2>Раздел</h2>',
       },
       {
         tag: '<h3>',
         description: 'Заголовок третьего уровня. Для подразделов.',
         example: '<h3>Подраздел</h3>',
-        preview: '<h3 style="margin:0">Подраздел</h3>',
+        preview: '<h3>Подраздел</h3>',
       },
       {
         tag: '<h4>',
         description: 'Заголовок четвёртого уровня.',
         example: '<h4>Пункт</h4>',
-        preview: '<h4 style="margin:0">Пункт</h4>',
+        preview: '<h4>Пункт</h4>',
       },
       {
         tag: '<h5>',
         description: 'Заголовок пятого уровня.',
         example: '<h5>Подпункт</h5>',
-        preview: '<h5 style="margin:0">Подпункт</h5>',
+        preview: '<h5>Подпункт</h5>',
       },
       {
         tag: '<h6>',
         description: 'Заголовок шестого (самого низкого) уровня.',
         example: '<h6>Мелкий заголовок</h6>',
-        preview: '<h6 style="margin:0">Мелкий заголовок</h6>',
+        preview: '<h6>Мелкий заголовок</h6>',
       },
     ],
   },
@@ -67,13 +67,13 @@ const sections: Section[] = [
         tag: '<p>',
         description: 'Параграф текста. Основной тег для текстового контента.',
         example: '<p>Это параграф текста.</p>',
-        preview: '<p style="margin:0">Это параграф текста.</p>',
+        preview: '<p>Это параграф текста.</p>',
       },
       {
         tag: '<span>',
         description: 'Строчный контейнер для выделения части текста.',
         example: 'Обычный <span style="color:blue">синий</span> текст',
-        preview: 'Обычный <span style="color:blue;font-weight:bold">синий</span> текст',
+        preview: 'Обычный <span style="color:blue">синий</span> текст',
       },
       {
         tag: '<strong>',
@@ -97,31 +97,31 @@ const sections: Section[] = [
         tag: '<a>',
         description: 'Гиперссылка. Атрибут href указывает URL.',
         example: '<a href="#">Ссылка</a>',
-        preview: '<a href="#" style="color:blue;text-decoration:underline">Ссылка</a>',
+        preview: '<a href="#">Ссылка</a>',
       },
       {
         tag: '<blockquote>',
         description: 'Блочная цитата.',
         example: '<blockquote>Цитата</blockquote>',
-        preview: '<blockquote style="margin:0;padding-left:12px;border-left:4px solid #ccc;color:#555">Цитата</blockquote>',
+        preview: '<blockquote>Цитата</blockquote>',
       },
       {
         tag: '<code>',
         description: 'Фрагмент кода.',
         example: '<code>console.log("hi")</code>',
-        preview: '<code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;font-family:monospace">console.log("hi")</code>',
+        preview: '<code>console.log("hi")</code>',
       },
       {
         tag: '<ul> / <li>',
         description: 'Маркированный список и элемент списка.',
         example: '<ul><li>Пункт 1</li><li>Пункт 2</li></ul>',
-        preview: '<ul style="margin:0;padding-left:20px"><li>Пункт 1</li><li>Пункт 2</li></ul>',
+        preview: '<ul><li>Пункт 1</li><li>Пункт 2</li></ul>',
       },
       {
         tag: '<ol> / <li>',
         description: 'Нумерованный список и элемент списка.',
         example: '<ol><li>Первый</li><li>Второй</li></ol>',
-        preview: '<ol style="margin:0;padding-left:20px"><li>Первый</li><li>Второй</li></ol>',
+        preview: '<ol><li>Первый</li><li>Второй</li></ol>',
       },
     ],
   },
@@ -134,55 +134,55 @@ const sections: Section[] = [
         tag: '<div>',
         description: 'Блочный контейнер общего назначения.',
         example: '<div>Содержимое</div>',
-        preview: '<div style="padding:12px;background:#dbeafe;border-radius:6px">Содержимое div</div>',
+        preview: '<div>Содержимое div</div>',
       },
       {
         tag: '<span>',
         description: 'Строчный контейнер для части текста.',
         example: '<span>текст</span>',
-        preview: 'Текст со <span style="background:#fef08a;padding:2px 4px">строчным контейнером</span> внутри',
+        preview: 'Текст со <span>строчным контейнером</span> внутри',
       },
       {
         tag: '<header>',
         description: 'Шапка страницы или секции.',
         example: '<header>Навигация</header>',
-        preview: '<header style="padding:10px;background:#1e293b;color:white;border-radius:6px">🔝 Шапка сайта</header>',
+        preview: '<header>🔝 Шапка сайта</header>',
       },
       {
         tag: '<footer>',
         description: 'Подвал страницы или секции.',
         example: '<footer>Копирайт</footer>',
-        preview: '<footer style="padding:10px;background:#1e293b;color:white;border-radius:6px;text-align:center">© 2024 Подвал</footer>',
+        preview: '<footer>© 2024 Подвал</footer>',
       },
       {
         tag: '<main>',
         description: 'Основное содержимое страницы (один на страницу).',
         example: '<main>Контент</main>',
-        preview: '<main style="padding:12px;background:#f0fdf4;border:2px dashed #22c55e;border-radius:6px">Основной контент</main>',
+        preview: '<main>Основной контент</main>',
       },
       {
         tag: '<section>',
         description: 'Тематический раздел документа.',
         example: '<section>Раздел</section>',
-        preview: '<section style="padding:12px;background:#faf5ff;border-left:4px solid #a855f7;border-radius:6px">Тематический раздел</section>',
+        preview: '<section>Тематический раздел</section>',
       },
       {
         tag: '<article>',
         description: 'Самостоятельный контент (статья, пост).',
         example: '<article>Статья</article>',
-        preview: '<article style="padding:12px;background:white;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,0.05)">📰 Статья</article>',
+        preview: '<article>📰 Статья</article>',
       },
       {
         tag: '<nav>',
         description: 'Навигационный блок с ссылками.',
-        example: '<nav>Меню</nav>',
-        preview: '<nav style="padding:10px;background:#f3f4f6;border-radius:6px;display:flex;gap:12px"><a href="#" style="color:#2563eb">Главная</a><a href="#" style="color:#2563eb">О нас</a></nav>',
+        example: '<nav><a href="#">Главная</a> <a href="#">О нас</a></nav>',
+        preview: '<nav><a href="#">Главная</a> | <a href="#">О нас</a></nav>',
       },
       {
         tag: '<aside>',
         description: 'Боковая панель, дополнительный контент.',
         example: '<aside>Сайдбар</aside>',
-        preview: '<aside style="padding:12px;background:#fef3c7;border-radius:6px">💡 Дополнительная информация</aside>',
+        preview: '<aside>💡 Дополнительная информация</aside>',
       },
     ],
   },
@@ -195,61 +195,61 @@ const sections: Section[] = [
         tag: '<form>',
         description: 'Контейнер формы. Атрибуты: action, method.',
         example: '<form action="/submit" method="POST">...</form>',
-        preview: '<form style="padding:12px;background:#f9fafb;border:2px dashed #9ca3af;border-radius:6px" onsubmit="event.preventDefault()"><em style="color:#6b7280">Контейнер формы</em></form>',
+        preview: '<form><em>Контейнер формы</em></form>',
       },
       {
         tag: '<input type="text">',
         description: 'Однострочное текстовое поле.',
         example: '<input type="text" placeholder="Имя">',
-        preview: '<input type="text" placeholder="Имя" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+        preview: '<input type="text" placeholder="Имя">',
       },
       {
         tag: '<input type="email">',
         description: 'Поле для email с проверкой формата.',
         example: '<input type="email" placeholder="mail@example.com">',
-        preview: '<input type="email" placeholder="mail@example.com" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+        preview: '<input type="email" placeholder="mail@example.com">',
       },
       {
         tag: '<input type="password">',
         description: 'Поле для пароля (скрытый ввод).',
         example: '<input type="password" placeholder="Пароль">',
-        preview: '<input type="password" value="secret" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+        preview: '<input type="password" value="secret">',
       },
       {
         tag: '<input type="checkbox">',
         description: 'Чекбокс (флажок).',
         example: '<input type="checkbox"> Согласен',
-        preview: '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" checked> Согласен с условиями</label>',
+        preview: '<label><input type="checkbox" checked> Согласен с условиями</label>',
       },
       {
         tag: '<input type="radio">',
         description: 'Переключатель (только один из группы).',
         example: '<input type="radio" name="r"> Вариант',
-        preview: '<div style="display:flex;flex-direction:column;gap:4px"><label style="display:flex;align-items:center;gap:6px"><input type="radio" name="demo" checked> Вариант 1</label><label style="display:flex;align-items:center;gap:6px"><input type="radio" name="demo"> Вариант 2</label></div>',
+        preview: '<div><label><input type="radio" name="demo" checked> Вариант 1</label><br><label><input type="radio" name="demo"> Вариант 2</label></div>',
       },
       {
         tag: '<textarea>',
         description: 'Многострочное текстовое поле.',
         example: '<textarea rows="3">Текст</textarea>',
-        preview: '<textarea rows="3" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box;font-family:inherit">Текст</textarea>',
+        preview: '<textarea rows="3">Текст</textarea>',
       },
       {
         tag: '<select>',
         description: 'Выпадающий список.',
         example: '<select><option>Вариант</option></select>',
-        preview: '<select style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box"><option>Вариант 1</option><option>Вариант 2</option></select>',
+        preview: '<select><option>Вариант 1</option><option>Вариант 2</option></select>',
       },
       {
         tag: '<button>',
         description: 'Кнопка. Типы: submit, button, reset.',
         example: '<button>Отправить</button>',
-        preview: '<button style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer">Отправить</button>',
+        preview: '<button>Отправить</button>',
       },
       {
         tag: '<label>',
         description: 'Подпись к элементу формы.',
         example: '<label for="name">Имя:</label>',
-        preview: '<label style="font-weight:500;color:#374151">Имя:</label>',
+        preview: '<label>Имя:</label>',
       },
     ],
   },
@@ -264,10 +264,14 @@ function CodeBlock({ code }: { code: string }) {
 }
 
 function PreviewBlock({ html }: { html: string }) {
+  const srcDoc = `<!DOCTYPE html><html><head><style>body{margin:8px;font-family:serif;font-size:16px;}</style></head><body>${html}</body></html>`
   return (
-    <div
-      className="bg-white px-4 py-3 rounded-lg text-sm border border-gray-200 min-h-[48px]"
-      dangerouslySetInnerHTML={{ __html: html }}
+    <iframe
+      srcDoc={srcDoc}
+      title="preview"
+      sandbox=""
+      className="w-full border border-gray-200 rounded-lg bg-white"
+      style={{ height: '80px', minHeight: '60px' }}
     />
   )
 }
@@ -291,7 +295,7 @@ function TagCard({ tag }: { tag: TagInfo }) {
         </div>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">{tag.description}</p>
 
-        {/* Живой пример */}
+        {/* Живой пример в изолированном iframe */}
         <div className="mb-3">
           <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1">
             👁️ Как выглядит
@@ -340,6 +344,8 @@ function Playground() {
     { name: 'Очистить', code: '' },
   ]
 
+  const iframeSrcDoc = `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:serif;font-size:16px;}</style></head><body>${code}</body></html>`
+
   return (
     <section id="playground" className="mb-16 scroll-mt-20">
       <div className="flex items-center gap-3 mb-4">
@@ -381,14 +387,17 @@ function Playground() {
           />
         </div>
 
-        {/* Превью */}
+        {/* Превью в изолированном iframe */}
         <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
           <div className="bg-blue-600 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
             👁️ Результат
           </div>
-          <div
-            className="p-6 min-h-[320px] text-gray-800"
-            dangerouslySetInnerHTML={{ __html: code }}
+          <iframe
+            srcDoc={iframeSrcDoc}
+            title="playground-preview"
+            sandbox="allow-same-origin"
+            className="w-full bg-white"
+            style={{ height: '320px', minHeight: '320px' }}
           />
         </div>
       </div>
