@@ -384,162 +384,6 @@ function SectionBlock({ section }: { section: Section }) {
   )
 }
 
-function Playground() {
-  const [code, setCode] = useState(`<style>
-  .box {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 18px;
-  }
-</style>
-
-<div class="box">
-  Красивый блок с градиентом!
-</div>`)
-
-  const presets = [
-    {
-      name: 'Flexbox',
-      code: `<style>
-  .container {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    background: #f0f0f0;
-    padding: 20px;
-  }
-  .item {
-    background: #4CAF50;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-  }
-</style>
-
-<div class="container">
-  <div class="item">1</div>
-  <div class="item">2</div>
-  <div class="item">3</div>
-</div>`,
-    },
-    {
-      name: 'Карточка',
-      code: `<style>
-  .card {
-    width: 250px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-    font-family: sans-serif;
-  }
-  .card h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-  }
-  .card p {
-    margin: 0;
-    color: #666;
-    line-height: 1.5;
-  }
-</style>
-
-<div class="card">
-  <h3>Заголовок карточки</h3>
-  <p>Описание карточки с текстом и стилями.</p>
-</div>`,
-    },
-    {
-      name: 'Кнопка',
-      code: `<style>
-  .btn {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .btn:hover {
-    background: #1976D2;
-  }
-</style>
-
-<button class="btn">Нажми меня</button>`,
-    },
-    {
-      name: 'Очистить',
-      code: '',
-    },
-  ]
-
-  const iframeSrcDoc = `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:sans-serif;font-size:16px;}</style></head><body>${code}</body></html>`
-
-  return (
-    <section id="playground" className="mb-16 scroll-mt-20">
-      <div className="flex items-center gap-3 mb-4">
-        <span className="text-4xl">🎮</span>
-        <h2 className="text-3xl font-bold text-gray-800">Тренажёр CSS</h2>
-      </div>
-      <p className="text-gray-600 mb-6">
-        Пиши HTML и CSS слева и смотри результат справа в реальном времени. Экспериментируй со стилями!
-      </p>
-
-      {/* Пресеты */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {presets.map((preset) => (
-          <button
-            key={preset.name}
-            onClick={() => setCode(preset.code)}
-            className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-colors cursor-pointer shadow-sm"
-          >
-            {preset.name}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Редактор */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-          <div className="bg-gray-800 text-gray-300 px-4 py-2 text-sm font-mono flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-400"></span>
-            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-            <span className="w-3 h-3 rounded-full bg-green-400"></span>
-            <span className="ml-2">styles.css + index.html</span>
-          </div>
-          <textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck={false}
-            className="w-full h-96 p-4 font-mono text-sm bg-gray-900 text-green-400 outline-none resize-none"
-            placeholder="Введи HTML и CSS здесь..."
-          />
-        </div>
-
-        {/* Превью в изолированном iframe */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-          <div className="bg-purple-600 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
-            👁️ Результат
-          </div>
-          <iframe
-            srcDoc={iframeSrcDoc}
-            title="playground-preview"
-            sandbox="allow-same-origin"
-            className="w-full bg-white"
-            style={{ height: '384px', minHeight: '384px' }}
-          />
-        </div>
-      </div>
-    </section>
-  )
-}
-
 export default function CSSGuide() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-purple-50">
@@ -571,12 +415,6 @@ export default function CSSGuide() {
               {section.icon} {section.title}
             </a>
           ))}
-          <a
-            href="#playground"
-            className="px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-700 hover:bg-orange-200 transition-colors"
-          >
-            🎮 Тренажёр
-          </a>
         </div>
       </nav>
 
@@ -599,9 +437,6 @@ export default function CSSGuide() {
         {sections.map((section) => (
           <SectionBlock key={section.id} section={section} />
         ))}
-
-        {/* Playground */}
-        <Playground />
       </main>
 
       {/* Footer */}
