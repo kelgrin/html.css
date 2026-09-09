@@ -4,13 +4,13 @@ type TagInfo = {
   tag: string
   description: string
   example: string
+  preview: string
 }
 
 type Section = {
   id: string
   title: string
   icon: string
-  color: string
   tags: TagInfo[]
 }
 
@@ -19,66 +19,240 @@ const sections: Section[] = [
     id: 'headings',
     title: 'Заголовки',
     icon: '📝',
-    color: 'from-blue-500 to-blue-700',
     tags: [
-      { tag: '<h1>', description: 'Главный заголовок страницы. Должен быть один на странице.', example: '<h1>Заголовок страницы</h1>' },
-      { tag: '<h2>', description: 'Заголовок второго уровня. Используется для основных разделов.', example: '<h2>Раздел</h2>' },
-      { tag: '<h3>', description: 'Заголовок третьего уровня. Для подразделов.', example: '<h3>Подраздел</h3>' },
-      { tag: '<h4>', description: 'Заголовок четвёртого уровня.', example: '<h4>Пункт</h4>' },
-      { tag: '<h5>', description: 'Заголовок пятого уровня.', example: '<h5>Подпункт</h5>' },
-      { tag: '<h6>', description: 'Заголовок шестого (самого низкого) уровня.', example: '<h6>Мелкий заголовок</h6>' },
-    ]
+      {
+        tag: '<h1>',
+        description: 'Главный заголовок страницы. Должен быть один на странице.',
+        example: '<h1>Заголовок страницы</h1>',
+        preview: '<h1 style="margin:0">Заголовок страницы</h1>',
+      },
+      {
+        tag: '<h2>',
+        description: 'Заголовок второго уровня. Используется для основных разделов.',
+        example: '<h2>Раздел</h2>',
+        preview: '<h2 style="margin:0">Раздел</h2>',
+      },
+      {
+        tag: '<h3>',
+        description: 'Заголовок третьего уровня. Для подразделов.',
+        example: '<h3>Подраздел</h3>',
+        preview: '<h3 style="margin:0">Подраздел</h3>',
+      },
+      {
+        tag: '<h4>',
+        description: 'Заголовок четвёртого уровня.',
+        example: '<h4>Пункт</h4>',
+        preview: '<h4 style="margin:0">Пункт</h4>',
+      },
+      {
+        tag: '<h5>',
+        description: 'Заголовок пятого уровня.',
+        example: '<h5>Подпункт</h5>',
+        preview: '<h5 style="margin:0">Подпункт</h5>',
+      },
+      {
+        tag: '<h6>',
+        description: 'Заголовок шестого (самого низкого) уровня.',
+        example: '<h6>Мелкий заголовок</h6>',
+        preview: '<h6 style="margin:0">Мелкий заголовок</h6>',
+      },
+    ],
   },
   {
     id: 'text',
     title: 'Текст',
     icon: '📄',
-    color: 'from-emerald-500 to-emerald-700',
     tags: [
-      { tag: '<p>', description: 'Параграф текста. Основной тег для текстового контента.', example: '<p>Это параграф текста.</p>' },
-      { tag: '<span>', description: 'Строчный контейнер для выделения части текста.', example: '<span>выделенный текст</span>' },
-      { tag: '<strong>', description: 'Важный текст. Отображается жирным.', example: '<strong>Важный текст</strong>' },
-      { tag: '<em>', description: 'Курсивный текст, смысловой акцент.', example: '<em>выделение</em>' },
-      { tag: '<br>', description: 'Перенос строки (пустой тег).', example: 'Строка 1<br>Строка 2' },
-      { tag: '<a>', description: 'Гиперссылка. Атрибут href указывает URL.', example: '<a href="https://example.com">Ссылка</a>' },
-      { tag: '<blockquote>', description: 'Блочная цитата.', example: '<blockquote>Цитата</blockquote>' },
-      { tag: '<code>', description: 'Фрагмент кода.', example: '<code>console.log("hi")</code>' },
-      { tag: '<ul> / <ol> / <li>', description: 'Маркированный, нумерованный списки и элемент списка.', example: '<ul><li>Пункт 1</li></ul>' },
-    ]
+      {
+        tag: '<p>',
+        description: 'Параграф текста. Основной тег для текстового контента.',
+        example: '<p>Это параграф текста.</p>',
+        preview: '<p style="margin:0">Это параграф текста.</p>',
+      },
+      {
+        tag: '<span>',
+        description: 'Строчный контейнер для выделения части текста.',
+        example: 'Обычный <span style="color:blue">синий</span> текст',
+        preview: 'Обычный <span style="color:blue;font-weight:bold">синий</span> текст',
+      },
+      {
+        tag: '<strong>',
+        description: 'Важный текст. Отображается жирным.',
+        example: '<strong>Важный текст</strong>',
+        preview: '<strong>Важный текст</strong>',
+      },
+      {
+        tag: '<em>',
+        description: 'Курсивный текст, смысловой акцент.',
+        example: '<em>выделение</em>',
+        preview: '<em>выделение</em>',
+      },
+      {
+        tag: '<br>',
+        description: 'Перенос строки (пустой тег).',
+        example: 'Строка 1<br>Строка 2',
+        preview: 'Строка 1<br>Строка 2',
+      },
+      {
+        tag: '<a>',
+        description: 'Гиперссылка. Атрибут href указывает URL.',
+        example: '<a href="#">Ссылка</a>',
+        preview: '<a href="#" style="color:blue;text-decoration:underline">Ссылка</a>',
+      },
+      {
+        tag: '<blockquote>',
+        description: 'Блочная цитата.',
+        example: '<blockquote>Цитата</blockquote>',
+        preview: '<blockquote style="margin:0;padding-left:12px;border-left:4px solid #ccc;color:#555">Цитата</blockquote>',
+      },
+      {
+        tag: '<code>',
+        description: 'Фрагмент кода.',
+        example: '<code>console.log("hi")</code>',
+        preview: '<code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;font-family:monospace">console.log("hi")</code>',
+      },
+      {
+        tag: '<ul> / <li>',
+        description: 'Маркированный список и элемент списка.',
+        example: '<ul><li>Пункт 1</li><li>Пункт 2</li></ul>',
+        preview: '<ul style="margin:0;padding-left:20px"><li>Пункт 1</li><li>Пункт 2</li></ul>',
+      },
+      {
+        tag: '<ol> / <li>',
+        description: 'Нумерованный список и элемент списка.',
+        example: '<ol><li>Первый</li><li>Второй</li></ol>',
+        preview: '<ol style="margin:0;padding-left:20px"><li>Первый</li><li>Второй</li></ol>',
+      },
+    ],
   },
   {
     id: 'containers',
     title: 'Контейнеры',
     icon: '📦',
-    color: 'from-purple-500 to-purple-700',
     tags: [
-      { tag: '<div>', description: 'Блочный контейнер общего назначения. Основной строительный блок.', example: '<div>Содержимое</div>' },
-      { tag: '<span>', description: 'Строчный контейнер для части текста.', example: '<span>текст</span>' },
-      { tag: '<header>', description: 'Шапка страницы или секции.', example: '<header>Навигация</header>' },
-      { tag: '<footer>', description: 'Подвал страницы или секции.', example: '<footer>Копирайт</footer>' },
-      { tag: '<main>', description: 'Основное содержимое страницы (один на страницу).', example: '<main>Контент</main>' },
-      { tag: '<section>', description: 'Тематический раздел документа.', example: '<section>Раздел</section>' },
-      { tag: '<article>', description: 'Самостоятельный контент (статья, пост).', example: '<article>Статья</article>' },
-      { tag: '<nav>', description: 'Навигационный блок с ссылками.', example: '<nav>Меню</nav>' },
-      { tag: '<aside>', description: 'Боковая панель, дополнительный контент.', example: '<aside>Сайдбар</aside>' },
-    ]
+      {
+        tag: '<div>',
+        description: 'Блочный контейнер общего назначения.',
+        example: '<div>Содержимое</div>',
+        preview: '<div style="padding:12px;background:#dbeafe;border-radius:6px">Содержимое div</div>',
+      },
+      {
+        tag: '<span>',
+        description: 'Строчный контейнер для части текста.',
+        example: '<span>текст</span>',
+        preview: 'Текст со <span style="background:#fef08a;padding:2px 4px">строчным контейнером</span> внутри',
+      },
+      {
+        tag: '<header>',
+        description: 'Шапка страницы или секции.',
+        example: '<header>Навигация</header>',
+        preview: '<header style="padding:10px;background:#1e293b;color:white;border-radius:6px">🔝 Шапка сайта</header>',
+      },
+      {
+        tag: '<footer>',
+        description: 'Подвал страницы или секции.',
+        example: '<footer>Копирайт</footer>',
+        preview: '<footer style="padding:10px;background:#1e293b;color:white;border-radius:6px;text-align:center">© 2024 Подвал</footer>',
+      },
+      {
+        tag: '<main>',
+        description: 'Основное содержимое страницы (один на страницу).',
+        example: '<main>Контент</main>',
+        preview: '<main style="padding:12px;background:#f0fdf4;border:2px dashed #22c55e;border-radius:6px">Основной контент</main>',
+      },
+      {
+        tag: '<section>',
+        description: 'Тематический раздел документа.',
+        example: '<section>Раздел</section>',
+        preview: '<section style="padding:12px;background:#faf5ff;border-left:4px solid #a855f7;border-radius:6px">Тематический раздел</section>',
+      },
+      {
+        tag: '<article>',
+        description: 'Самостоятельный контент (статья, пост).',
+        example: '<article>Статья</article>',
+        preview: '<article style="padding:12px;background:white;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,0.05)">📰 Статья</article>',
+      },
+      {
+        tag: '<nav>',
+        description: 'Навигационный блок с ссылками.',
+        example: '<nav>Меню</nav>',
+        preview: '<nav style="padding:10px;background:#f3f4f6;border-radius:6px;display:flex;gap:12px"><a href="#" style="color:#2563eb">Главная</a><a href="#" style="color:#2563eb">О нас</a></nav>',
+      },
+      {
+        tag: '<aside>',
+        description: 'Боковая панель, дополнительный контент.',
+        example: '<aside>Сайдбар</aside>',
+        preview: '<aside style="padding:12px;background:#fef3c7;border-radius:6px">💡 Дополнительная информация</aside>',
+      },
+    ],
   },
   {
     id: 'forms',
     title: 'Формы',
     icon: '📋',
-    color: 'from-orange-500 to-orange-700',
     tags: [
-      { tag: '<form>', description: 'Контейнер формы. Атрибуты: action (URL), method (GET/POST).', example: '<form action="/submit" method="POST">...</form>' },
-      { tag: '<input>', description: 'Поле ввода. Тип задаётся атрибутом type.', example: '<input type="text" placeholder="Имя">' },
-      { tag: '<textarea>', description: 'Многострочное текстовое поле.', example: '<textarea rows="4">Текст</textarea>' },
-      { tag: '<select> / <option>', description: 'Выпадающий список с вариантами.', example: '<select><option>Вариант</option></select>' },
-      { tag: '<button>', description: 'Кнопка. Типы: submit, button, reset.', example: '<button type="submit">Отправить</button>' },
-      { tag: '<label>', description: 'Подпись к элементу формы. Связывается через for.', example: '<label for="name">Имя:</label>' },
-      { tag: '<fieldset>', description: 'Группировка элементов формы.', example: '<fieldset>...</fieldset>' },
-      { tag: '<legend>', description: 'Заголовок для fieldset.', example: '<legend>Личные данные</legend>' },
-    ]
-  }
+      {
+        tag: '<form>',
+        description: 'Контейнер формы. Атрибуты: action, method.',
+        example: '<form action="/submit" method="POST">...</form>',
+        preview: '<form style="padding:12px;background:#f9fafb;border:2px dashed #9ca3af;border-radius:6px" onsubmit="event.preventDefault()"><em style="color:#6b7280">Контейнер формы</em></form>',
+      },
+      {
+        tag: '<input type="text">',
+        description: 'Однострочное текстовое поле.',
+        example: '<input type="text" placeholder="Имя">',
+        preview: '<input type="text" placeholder="Имя" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+      },
+      {
+        tag: '<input type="email">',
+        description: 'Поле для email с проверкой формата.',
+        example: '<input type="email" placeholder="mail@example.com">',
+        preview: '<input type="email" placeholder="mail@example.com" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+      },
+      {
+        tag: '<input type="password">',
+        description: 'Поле для пароля (скрытый ввод).',
+        example: '<input type="password" placeholder="Пароль">',
+        preview: '<input type="password" value="secret" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box">',
+      },
+      {
+        tag: '<input type="checkbox">',
+        description: 'Чекбокс (флажок).',
+        example: '<input type="checkbox"> Согласен',
+        preview: '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" checked> Согласен с условиями</label>',
+      },
+      {
+        tag: '<input type="radio">',
+        description: 'Переключатель (только один из группы).',
+        example: '<input type="radio" name="r"> Вариант',
+        preview: '<div style="display:flex;flex-direction:column;gap:4px"><label style="display:flex;align-items:center;gap:6px"><input type="radio" name="demo" checked> Вариант 1</label><label style="display:flex;align-items:center;gap:6px"><input type="radio" name="demo"> Вариант 2</label></div>',
+      },
+      {
+        tag: '<textarea>',
+        description: 'Многострочное текстовое поле.',
+        example: '<textarea rows="3">Текст</textarea>',
+        preview: '<textarea rows="3" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box;font-family:inherit">Текст</textarea>',
+      },
+      {
+        tag: '<select>',
+        description: 'Выпадающий список.',
+        example: '<select><option>Вариант</option></select>',
+        preview: '<select style="padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;width:100%;box-sizing:border-box"><option>Вариант 1</option><option>Вариант 2</option></select>',
+      },
+      {
+        tag: '<button>',
+        description: 'Кнопка. Типы: submit, button, reset.',
+        example: '<button>Отправить</button>',
+        preview: '<button style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer">Отправить</button>',
+      },
+      {
+        tag: '<label>',
+        description: 'Подпись к элементу формы.',
+        example: '<label for="name">Имя:</label>',
+        preview: '<label style="font-weight:500;color:#374151">Имя:</label>',
+      },
+    ],
+  },
 ]
 
 function CodeBlock({ code }: { code: string }) {
@@ -89,13 +263,22 @@ function CodeBlock({ code }: { code: string }) {
   )
 }
 
+function PreviewBlock({ html }: { html: string }) {
+  return (
+    <div
+      className="bg-white px-4 py-3 rounded-lg text-sm border border-gray-200 min-h-[48px]"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
+}
+
 function TagCard({ tag }: { tag: TagInfo }) {
   const [showExample, setShowExample] = useState(false)
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden group">
       <div className="p-5">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
           <code className="text-lg font-bold text-gray-800 bg-gray-100 px-3 py-1 rounded-md font-mono group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
             {tag.tag}
           </code>
@@ -103,12 +286,25 @@ function TagCard({ tag }: { tag: TagInfo }) {
             onClick={() => setShowExample(!showExample)}
             className="text-sm px-3 py-1 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-700 transition-colors cursor-pointer"
           >
-            {showExample ? 'Скрыть' : 'Пример'}
+            {showExample ? 'Скрыть код' : 'Показать код'}
           </button>
         </div>
-        <p className="text-gray-600 text-sm leading-relaxed">{tag.description}</p>
+        <p className="text-gray-600 text-sm leading-relaxed mb-4">{tag.description}</p>
+
+        {/* Живой пример */}
+        <div className="mb-3">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1">
+            👁️ Как выглядит
+          </div>
+          <PreviewBlock html={tag.preview} />
+        </div>
+
+        {/* Код */}
         {showExample && (
-          <div className="mt-4 animate-fade-in">
+          <div className="animate-fade-in">
+            <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1">
+              💻 Код
+            </div>
             <CodeBlock code={tag.example} />
           </div>
         )}
@@ -133,6 +329,73 @@ function SectionBlock({ section }: { section: Section }) {
   )
 }
 
+function Playground() {
+  const [code, setCode] = useState('<h1>Привет, мир!</h1>\n<p>Попробуй написать свой HTML здесь.</p>')
+
+  const presets = [
+    { name: 'Заголовки', code: '<h1>Главный</h1>\n<h2>Подзаголовок</h2>\n<h3>Раздел</h3>' },
+    { name: 'Список', code: '<ul>\n  <li>Яблоко</li>\n  <li>Банан</li>\n  <li>Апельсин</li>\n</ul>' },
+    { name: 'Форма', code: '<form>\n  <label>Имя:</label><br>\n  <input type="text" placeholder="Ваше имя"><br><br>\n  <button>Отправить</button>\n</form>' },
+    { name: 'Ссылка', code: '<p>Посети <a href="#">example.com</a></p>' },
+    { name: 'Очистить', code: '' },
+  ]
+
+  return (
+    <section id="playground" className="mb-16 scroll-mt-20">
+      <div className="flex items-center gap-3 mb-4">
+        <span className="text-4xl">🎮</span>
+        <h2 className="text-3xl font-bold text-gray-800">Тренажёр</h2>
+      </div>
+      <p className="text-gray-600 mb-6">
+        Вводи HTML-теги слева и смотри результат справа в реальном времени. Экспериментируй!
+      </p>
+
+      {/* Пресеты */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {presets.map((preset) => (
+          <button
+            key={preset.name}
+            onClick={() => setCode(preset.code)}
+            className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors cursor-pointer shadow-sm"
+          >
+            {preset.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Редактор */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+          <div className="bg-gray-800 text-gray-300 px-4 py-2 text-sm font-mono flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-red-400"></span>
+            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span className="w-3 h-3 rounded-full bg-green-400"></span>
+            <span className="ml-2">index.html</span>
+          </div>
+          <textarea
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            spellCheck={false}
+            className="w-full h-80 p-4 font-mono text-sm bg-gray-900 text-green-400 outline-none resize-none"
+            placeholder="Введи HTML-теги здесь..."
+          />
+        </div>
+
+        {/* Превью */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+          <div className="bg-blue-600 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
+            👁️ Результат
+          </div>
+          <div
+            className="p-6 min-h-[320px] text-gray-800"
+            dangerouslySetInnerHTML={{ __html: code }}
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -147,7 +410,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Справочник HTML тегов</h1>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-            Краткое руководство по основным HTML тегам: заголовки, текст, контейнеры и формы
+            Краткое руководство по основным HTML тегам с живыми примерами и интерактивным тренажёром
           </p>
         </div>
       </header>
@@ -164,6 +427,12 @@ export default function App() {
               {section.icon} {section.title}
             </a>
           ))}
+          <a
+            href="#playground"
+            className="px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-700 hover:bg-orange-200 transition-colors"
+          >
+            🎮 Тренажёр
+          </a>
         </div>
       </nav>
 
@@ -186,6 +455,9 @@ export default function App() {
         {sections.map((section) => (
           <SectionBlock key={section.id} section={section} />
         ))}
+
+        {/* Playground */}
+        <Playground />
       </main>
 
       {/* Footer */}
