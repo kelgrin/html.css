@@ -466,30 +466,30 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
 
       {/* Плавающая панель тренажёра */}
       {isExpanded && (
-        <div className="fixed bottom-20 right-6 z-[190] w-[90vw] max-w-5xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
+        <div className="fixed bottom-20 right-6 z-[190] w-[60vw] max-w-3xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
           {/* Заголовок */}
-          <div className={`bg-gradient-to-r ${gradient} text-white px-6 py-4 flex items-center justify-between`}>
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">🎮</span>
-              <h3 className="text-xl font-bold">{title}</h3>
+          <div className={`bg-gradient-to-r ${gradient} text-white px-4 py-3 flex items-center justify-between`}>
+            <div className="flex items-center gap-2">
+              <span className="text-xl">🎮</span>
+              <h3 className="text-lg font-bold">{title}</h3>
             </div>
             <button
               onClick={() => setIsExpanded(false)}
-              className="text-white hover:bg-white/20 rounded-full p-2 transition-colors"
+              className="text-white hover:bg-white/20 rounded-full p-1.5 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
           {/* Пресеты */}
-          <div className="px-6 py-3 bg-gray-50 border-b border-gray-200 flex flex-wrap gap-2">
+          <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex flex-wrap gap-1.5">
             {presets.map((preset) => (
               <button
                 key={preset.name}
                 onClick={() => setCode(preset.code)}
-                className={`px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 ${hoverPreset} transition-colors cursor-pointer shadow-sm`}
+                className={`px-2.5 py-1 text-xs rounded-full bg-white border border-gray-200 ${hoverPreset} transition-colors cursor-pointer shadow-sm`}
               >
                 {preset.name}
               </button>
@@ -497,27 +497,27 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
           </div>
 
           {/* Редактор и превью */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 max-h-[70vh] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 max-h-[47vh] overflow-hidden">
             {/* Редактор */}
             <div className="border-r border-gray-200">
-              <div className="bg-gray-800 text-gray-300 px-4 py-2 text-sm font-mono flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-400"></span>
-                <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-                <span className="w-3 h-3 rounded-full bg-green-400"></span>
-                <span className="ml-2">{fileName}</span>
+              <div className="bg-gray-800 text-gray-300 px-3 py-1.5 text-xs font-mono flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+                <span className="ml-1.5">{fileName}</span>
               </div>
               <textarea
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 spellCheck={false}
-                className="w-full h-[50vh] p-4 font-mono text-sm bg-gray-900 text-green-400 outline-none resize-none"
+                className="w-full h-[33vh] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
                 placeholder={placeholder}
               />
             </div>
 
             {/* Превью */}
             <div>
-              <div className={`${previewBg} text-white px-4 py-2 text-sm font-medium flex items-center gap-2`}>
+              <div className={`${previewBg} text-white px-3 py-1.5 text-xs font-medium flex items-center gap-1.5`}>
                 👁️ Результат
               </div>
               <iframe
@@ -525,7 +525,7 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
                 title="playground-preview"
                 sandbox="allow-same-origin"
                 className="w-full bg-white"
-                style={{ height: '50vh', minHeight: '300px' }}
+                style={{ height: '33vh', minHeight: '200px' }}
               />
             </div>
           </div>
