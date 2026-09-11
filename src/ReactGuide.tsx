@@ -787,101 +787,106 @@ npm run dev`}
 
 // ============ Тренажёр React ============
 
-function ReactPlayground() {
-  const [code, setCode] = useState(`function Counter() {
+const reactTasks = [
+  {
+    id: 1,
+    title: 'Создай компонент',
+    description: 'Создай компонент Counter, который отображает текст "Привет, React!"',
+    exampleCode: `function Counter() {
+  return <div>Привет, React!</div>;
+}`,
+    hint: 'Создай функцию Counter и верни JSX с текстом',
+  },
+  {
+    id: 2,
+    title: 'Добавь состояние',
+    description: 'Добавь счётчик с помощью useState, начальное значение 0',
+    exampleCode: `function Counter() {
   const [count, setCount] = React.useState(0);
-
+  return <div>Счётчик: {count}</div>;
+}`,
+    hint: 'Используй React.useState(0) и деструктуризацию [count, setCount]',
+  },
+  {
+    id: 3,
+    title: 'Кнопка увеличения',
+    description: 'Добавь кнопку, которая увеличивает счётчик на 1',
+    exampleCode: `function Counter() {
+  const [count, setCount] = React.useState(0);
   return (
-    <div style={{padding: 20, fontFamily: 'sans-serif'}}>
-      <h2>Счётчик: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>
-        +1
-      </button>
-      {' '}
-      <button onClick={() => setCount(count - 1)}>
-        -1
-      </button>
-      {' '}
-      <button onClick={() => setCount(0)}>
-        Сброс
-      </button>
+    <div>
+      <div>Счётчик: {count}</div>
+      <button onClick={() => setCount(count + 1)}>+1</button>
     </div>
   );
-}`)
+}`,
+    hint: 'Используй onClick={() => setCount(count + 1)}',
+  },
+  {
+    id: 4,
+    title: 'Список элементов',
+    description: 'Создай компонент, который отображает список из 3 элементов с помощью map',
+    exampleCode: `function List() {
+  const items = ['Яблоко', 'Банан', 'Апельсин'];
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+}`,
+    hint: 'Используй массив и метод map для рендеринга списка',
+  },
+  {
+    id: 5,
+    title: 'Форма с input',
+    description: 'Создай форму с input, который обновляет состояние при вводе',
+    exampleCode: `function Form() {
+  const [text, setText] = React.useState('');
+  return (
+    <div>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Введите текст"
+      />
+      <p>Вы ввели: {text}</p>
+    </div>
+  );
+}`,
+    hint: 'Используй value={text} и onChange={(e) => setText(e.target.value)}',
+  },
+]
 
+function ReactPlayground() {
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
+  const [code, setCode] = useState('')
+  const [isCompleted, setIsCompleted] = useState(false)
   const [output, setOutput] = useState<{ type: 'success'; element: React.ReactNode } | { type: 'error'; message: string }>({
     type: 'success',
     element: null,
   })
 
-  const presets = [
-    {
-      name: 'Счётчик',
-      code: `function Counter() {
-  const [count, setCount] = React.useState(0);
+  const currentTask = reactTasks[currentTaskIndex]
 
-  return (
-    <div style={{padding: 20, fontFamily: 'sans-serif'}}>
-      <h2>Счётчик: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>+1</button>
-      {' '}
-      <button onClick={() => setCount(count - 1)}>-1</button>
-      {' '}
-      <button onClick={() => setCount(0)}>Сброс</button>
-    </div>
-  );
-}`,
-    },
-    {
-      name: 'Приветствие',
-      code: `function Hello() {
-  const [name, setName] = React.useState('Мир');
-
-  return (
-    <div style={{padding: 20, fontFamily: 'sans-serif'}}>
-      <h1>Привет, {name}!</h1>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Введите имя"
-        style={{padding: 8, fontSize: 16}}
-      />
-    </div>
-  );
-}`,
-    },
-    {
-      name: 'Список',
-      code: `function TodoList() {
-  const [items, setItems] = React.useState(['Изучить React', 'Создать проект']);
-  const [text, setText] = React.useState('');
-
-  const add = () => {
-    if (text.trim()) {
-      setItems([...items, text]);
-      setText('');
+  const checkSolution = () => {
+    if (code.trim().length > 0) {
+      compileAndRun(code)
+      if (output.type === 'success') {
+        setIsCompleted(true)
+      }
     }
-  };
+  }
 
-  return (
-    <div style={{padding: 20, fontFamily: 'sans-serif'}}>
-      <h2>Мои задачи</h2>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Новая задача"
-        style={{padding: 8, marginRight: 8}}
-      />
-      <button onClick={add}>Добавить</button>
-      <ul>
-        {items.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
-    </div>
-  );
-}`,
-    },
-    { name: 'Очистить', code: '' },
-  ]
+  const nextTask = () => {
+    if (currentTaskIndex < reactTasks.length - 1) {
+      setCurrentTaskIndex(currentTaskIndex + 1)
+      setCode('')
+      setIsCompleted(false)
+      setOutput({ type: 'success', element: null })
+    }
+  }
 
   const compileAndRun = (source: string) => {
     if (!source.trim()) {
@@ -892,7 +897,7 @@ function ReactPlayground() {
     try {
       // Транспилируем JSX в JS без модульной системы
       const transformed = transform(source, {
-        presets: [['react', { useBuiltIns: false }]],
+        presets: ['react'],
         filename: 'user-code.jsx',
         sourceType: 'script',
         babelrc: false,
@@ -952,45 +957,57 @@ function ReactPlayground() {
       <div className="flex items-center gap-3 mb-4">
         <span className="text-4xl">🎮</span>
         <h2 className="text-3xl font-bold text-gray-800">Тренажёр React</h2>
-      </div>
-      <p className="text-gray-600 mb-6">
-        Пиши React-код слева и смотри результат справа в реальном времени. Используй <code className="bg-gray-100 px-2 py-0.5 rounded">React.useState</code> вместо импорта.
-      </p>
-
-      <div className="flex flex-wrap gap-2 mb-4">
-        {presets.map((preset) => (
-          <button
-            key={preset.name}
-            onClick={() => setCode(preset.code)}
-            className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-sky-50 hover:border-sky-300 hover:text-sky-700 transition-colors cursor-pointer shadow-sm"
-          >
-            {preset.name}
-          </button>
-        ))}
+        <span className="text-lg text-gray-600">• Задание {currentTaskIndex + 1} из {reactTasks.length}</span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-          <div className="bg-gray-800 text-gray-300 px-4 py-2 text-sm font-mono flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-400"></span>
-            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-            <span className="w-3 h-3 rounded-full bg-green-400"></span>
-            <span className="ml-2">App.jsx</span>
+      {/* Задание */}
+      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 mb-6 border border-yellow-200">
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+            {currentTask.id}
           </div>
-          <textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck={false}
-            className="w-full h-80 p-4 font-mono text-sm bg-gray-900 text-green-400 outline-none resize-none"
-            placeholder="Напиши React-компонент..."
-          />
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">{currentTask.title}</h3>
+            <p className="text-gray-700 mb-2">{currentTask.description}</p>
+            {currentTask.hint && (
+              <p className="text-sm text-gray-600 italic">💡 Подсказка: {currentTask.hint}</p>
+            )}
+          </div>
+          {isCompleted && (
+            <div className="flex-shrink-0 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+        {/* Пример */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+          <div className="bg-green-600 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
+            🎯 Пример (как должно выглядеть)
+          </div>
+          <div className="p-4 min-h-[200px] bg-gray-50">
+            <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono">{currentTask.exampleCode}</pre>
+          </div>
         </div>
 
+        {/* Результат студента */}
         <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-          <div className="bg-sky-600 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
-            👁️ Результат
+          <div className="bg-sky-600 text-white px-4 py-2 text-sm font-medium flex items-center justify-between">
+            <span className="flex items-center gap-2">👁️ Твой результат</span>
+            {!isCompleted && code.trim() && (
+              <button
+                onClick={checkSolution}
+                className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-xs transition-colors"
+              >
+                Проверить
+              </button>
+            )}
           </div>
-          <div className="p-4 min-h-[320px] bg-white">
+          <div className="p-4 min-h-[200px] bg-white">
             {output.type === 'error' ? (
               <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
                 <div className="font-bold text-red-700 mb-2">❌ Ошибка:</div>
@@ -1005,6 +1022,36 @@ function ReactPlayground() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Редактор */}
+      <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+        <div className="bg-gray-800 text-gray-300 px-4 py-2 text-sm font-mono flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-red-400"></span>
+            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span className="w-3 h-3 rounded-full bg-green-400"></span>
+            <span className="ml-2">App.jsx</span>
+          </div>
+          {isCompleted && currentTaskIndex < reactTasks.length - 1 && (
+            <button
+              onClick={nextTask}
+              className="px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded text-sm font-medium transition-colors"
+            >
+              Следующее задание →
+            </button>
+          )}
+        </div>
+        <textarea
+          value={code}
+          onChange={(e) => {
+            setCode(e.target.value)
+            if (isCompleted) setIsCompleted(false)
+          }}
+          spellCheck={false}
+          className="w-full h-80 p-4 font-mono text-sm bg-gray-900 text-green-400 outline-none resize-none"
+          placeholder="Напиши React-компонент здесь... Используй React.useState вместо импорта"
+        />
       </div>
     </section>
   )

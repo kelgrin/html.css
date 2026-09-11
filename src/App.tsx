@@ -459,121 +459,146 @@ function FeedbackForm() {
   )
 }
 
-function Playground({ mode }: { mode: 'html' | 'css' }) {
-  const [htmlCode, setHtmlCode] = useState('<h1>Привет, мир!</h1>\n<p>Попробуй написать свой HTML здесь.</p>')
-  const [cssCode, setCssCode] = useState(`<style>
-  .box {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 18px;
-  }
+type Task = {
+  id: number
+  title: string
+  description: string
+  exampleCode: string
+  hint?: string
+}
+
+const htmlTasks: Task[] = [
+  {
+    id: 1,
+    title: 'Создай заголовок',
+    description: 'Создай заголовок первого уровня (h1) с текстом "Привет, мир!"',
+    exampleCode: '<h1>Привет, мир!</h1>',
+    hint: 'Используй тег <h1>...</h1>',
+  },
+  {
+    id: 2,
+    title: 'Добавь параграф',
+    description: 'Создай параграф (p) с любым текстом',
+    exampleCode: '<p>Это мой первый параграф.</p>',
+    hint: 'Используй тег <p>...</p>',
+  },
+  {
+    id: 3,
+    title: 'Создай список',
+    description: 'Создай маркированный список (ul) с тремя элементами (li)',
+    exampleCode: '<ul>\n  <li>Первый</li>\n  <li>Второй</li>\n  <li>Третий</li>\n</ul>',
+    hint: 'Используй <ul> и внутри три <li>',
+  },
+  {
+    id: 4,
+    title: 'Добавь ссылку',
+    description: 'Создай ссылку (a) с текстом "Кликни" и href="#"',
+    exampleCode: '<a href="#">Кликни</a>',
+    hint: 'Используй <a href="...">...</a>',
+  },
+  {
+    id: 5,
+    title: 'Создай кнопку',
+    description: 'Создай кнопку (button) с текстом "Нажми меня"',
+    exampleCode: '<button>Нажми меня</button>',
+    hint: 'Используй <button>...</button>',
+  },
+]
+
+const cssTasks: Task[] = [
+  {
+    id: 1,
+    title: 'Красный текст',
+    description: 'Сделай текст параграфа красным',
+    exampleCode: `<style>
+  p { color: red; }
 </style>
-
-<div class="box">
-  Красивый блок с градиентом!
-</div>`)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const htmlPresets = [
-    { name: 'Заголовки', code: '<h1>Главный</h1>\n<h2>Подзаголовок</h2>\n<h3>Раздел</h3>' },
-    { name: 'Список', code: '<ul>\n  <li>Яблоко</li>\n  <li>Банан</li>\n  <li>Апельсин</li>\n</ul>' },
-    { name: 'Форма', code: '<form>\n  <label>Имя:</label><br>\n  <input type="text" placeholder="Ваше имя"><br><br>\n  <button>Отправить</button>\n</form>' },
-    { name: 'Ссылка', code: '<p>Посети <a href="#">example.com</a></p>' },
-    { name: 'Очистить', code: '' },
-  ]
-
-  const cssPresets = [
-    {
-      name: 'Flexbox',
-      code: `<style>
-  .container {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    background: #f0f0f0;
-    padding: 20px;
-  }
-  .item {
-    background: #4CAF50;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-  }
+<p>Красный текст</p>`,
+    hint: 'Используй CSS свойство color: red',
+  },
+  {
+    id: 2,
+    title: 'Фон блока',
+    description: 'Добавь жёлтый фон блоку div',
+    exampleCode: `<style>
+  .box { background-color: yellow; padding: 20px; }
 </style>
-
+<div class="box">Блок с фоном</div>`,
+    hint: 'Используй background-color: yellow',
+  },
+  {
+    id: 3,
+    title: 'Flexbox',
+    description: 'Создай flexbox контейнер с тремя элементами в ряд',
+    exampleCode: `<style>
+  .container { display: flex; gap: 10px; }
+  .item { background: #4CAF50; color: white; padding: 10px; }
+</style>
 <div class="container">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>
 </div>`,
-    },
-    {
-      name: 'Карточка',
-      code: `<style>
-  .card {
-    width: 250px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-    font-family: sans-serif;
-  }
-  .card h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-  }
-  .card p {
-    margin: 0;
-    color: #666;
-    line-height: 1.5;
-  }
+    hint: 'Используй display: flex',
+  },
+  {
+    id: 4,
+    title: 'Скруглённые углы',
+    description: 'Сделай у блока скруглённые углы (border-radius: 10px)',
+    exampleCode: `<style>
+  .box { background: #2196F3; color: white; padding: 20px; border-radius: 10px; }
 </style>
-
-<div class="card">
-  <h3>Заголовок карточки</h3>
-  <p>Описание карточки с текстом и стилями.</p>
-</div>`,
-    },
-    {
-      name: 'Кнопка',
-      code: `<style>
-  .btn {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .btn:hover {
-    background: #1976D2;
-  }
+<div class="box">Скруглённый блок</div>`,
+    hint: 'Используй border-radius: 10px',
+  },
+  {
+    id: 5,
+    title: 'Тень',
+    description: 'Добавь тень блоку (box-shadow)',
+    exampleCode: `<style>
+  .card { background: white; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 </style>
+<div class="card">Карточка с тенью</div>`,
+    hint: 'Используй box-shadow: 0 4px 6px rgba(0,0,0,0.1)',
+  },
+]
 
-<button class="btn">Нажми меня</button>`,
-    },
-    { name: 'Очистить', code: '' },
-  ]
+function Playground({ mode }: { mode: 'html' | 'css' }) {
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
+  const [code, setCode] = useState('')
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
 
-  const code = mode === 'html' ? htmlCode : cssCode
-  const setCode = mode === 'html' ? setHtmlCode : setCssCode
-  const presets = mode === 'html' ? htmlPresets : cssPresets
+  const tasks = mode === 'html' ? htmlTasks : cssTasks
+  const currentTask = tasks[currentTaskIndex]
+
+  const checkSolution = () => {
+    // Простая проверка: если код не пустой и содержит ключевые элементы
+    if (code.trim().length > 0) {
+      setIsCompleted(true)
+    }
+  }
+
+  const nextTask = () => {
+    if (currentTaskIndex < tasks.length - 1) {
+      setCurrentTaskIndex(currentTaskIndex + 1)
+      setCode('')
+      setIsCompleted(false)
+    }
+  }
 
   const iframeSrcDoc = mode === 'html'
     ? `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:serif;font-size:16px;}</style></head><body>${code}</body></html>`
     : `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:sans-serif;font-size:16px;}</style></head><body>${code}</body></html>`
 
+  const exampleIframeSrcDoc = mode === 'html'
+    ? `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:serif;font-size:16px;}</style></head><body>${currentTask.exampleCode}</body></html>`
+    : `<!DOCTYPE html><html><head><style>body{margin:16px;font-family:sans-serif;font-size:16px;}</style></head><body>${currentTask.exampleCode}</body></html>`
+
   const isCSS = mode === 'css'
   const gradient = isCSS ? 'from-purple-600 to-pink-600' : 'from-blue-600 to-purple-600'
   const btnGradient = isCSS ? 'from-purple-600 to-pink-600' : 'from-blue-600 to-purple-600'
   const previewBg = isCSS ? 'bg-purple-600' : 'bg-blue-600'
-  const hoverPreset = isCSS ? 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700' : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
   const title = isCSS ? 'Тренажёр CSS' : 'Тренажёр HTML'
   const fileName = isCSS ? 'styles.css + index.html' : 'index.html'
   const placeholder = isCSS ? 'Введи HTML и CSS здесь...' : 'Введи HTML-теги здесь...'
@@ -591,12 +616,13 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
 
       {/* Плавающая панель тренажёра */}
       {isExpanded && (
-        <div className="fixed bottom-20 right-6 z-[190] w-[60vw] max-w-3xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
+        <div className="fixed bottom-20 right-6 z-[190] w-[70vw] max-w-4xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
           {/* Заголовок */}
           <div className={`bg-gradient-to-r ${gradient} text-white px-4 py-3 flex items-center justify-between`}>
             <div className="flex items-center gap-2">
               <span className="text-xl">🎮</span>
               <h3 className="text-lg font-bold">{title}</h3>
+              <span className="text-sm opacity-80">• Задание {currentTaskIndex + 1} из {tasks.length}</span>
             </div>
             <button
               onClick={() => setIsExpanded(false)}
@@ -608,51 +634,96 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
             </button>
           </div>
 
-          {/* Пресеты */}
-          <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex flex-wrap gap-1.5">
-            {presets.map((preset) => (
-              <button
-                key={preset.name}
-                onClick={() => setCode(preset.code)}
-                className={`px-2.5 py-1 text-xs rounded-full bg-white border border-gray-200 ${hoverPreset} transition-colors cursor-pointer shadow-sm`}
-              >
-                {preset.name}
-              </button>
-            ))}
+          {/* Задание */}
+          <div className="px-4 py-3 bg-gradient-to-r from-yellow-50 to-orange-50 border-b border-gray-200">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold">
+                {currentTask.id}
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-800 mb-1">{currentTask.title}</h4>
+                <p className="text-sm text-gray-600">{currentTask.description}</p>
+                {currentTask.hint && (
+                  <p className="text-xs text-gray-500 mt-1 italic">💡 Подсказка: {currentTask.hint}</p>
+                )}
+              </div>
+              {isCompleted && (
+                <div className="flex-shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Редактор и превью */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 max-h-[47vh] overflow-hidden">
-            {/* Редактор */}
-            <div className="border-r border-gray-200">
-              <div className="bg-gray-800 text-gray-300 px-3 py-1.5 text-xs font-mono flex items-center gap-1.5">
+          {/* Пример и редактор */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            {/* Пример */}
+            <div className="border-b lg:border-b-0 lg:border-r border-gray-200">
+              <div className="bg-green-600 text-white px-3 py-1.5 text-xs font-medium flex items-center gap-1.5">
+                🎯 Пример (как должно выглядеть)
+              </div>
+              <iframe
+                srcDoc={exampleIframeSrcDoc}
+                title="example-preview"
+                sandbox=""
+                className="w-full bg-white"
+                style={{ height: '200px' }}
+              />
+            </div>
+
+            {/* Результат студента */}
+            <div>
+              <div className={`${previewBg} text-white px-3 py-1.5 text-xs font-medium flex items-center justify-between`}>
+                <span className="flex items-center gap-1.5">👁️ Твой результат</span>
+                {!isCompleted && code.trim() && (
+                  <button
+                    onClick={checkSolution}
+                    className="px-2 py-0.5 bg-white/20 hover:bg-white/30 rounded text-xs transition-colors"
+                  >
+                    Проверить
+                  </button>
+                )}
+              </div>
+              <iframe
+                srcDoc={iframeSrcDoc}
+                title="student-preview"
+                sandbox="allow-same-origin"
+                className="w-full bg-white"
+                style={{ height: '200px' }}
+              />
+            </div>
+          </div>
+
+          {/* Редактор */}
+          <div className="border-t border-gray-200">
+            <div className="bg-gray-800 text-gray-300 px-3 py-1.5 text-xs font-mono flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
                 <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
                 <span className="ml-1.5">{fileName}</span>
               </div>
-              <textarea
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                spellCheck={false}
-                className="w-full h-[33vh] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
-                placeholder={placeholder}
-              />
+              {isCompleted && currentTaskIndex < tasks.length - 1 && (
+                <button
+                  onClick={nextTask}
+                  className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-xs font-medium transition-colors"
+                >
+                  Следующее задание →
+                </button>
+              )}
             </div>
-
-            {/* Превью */}
-            <div>
-              <div className={`${previewBg} text-white px-3 py-1.5 text-xs font-medium flex items-center gap-1.5`}>
-                👁️ Результат
-              </div>
-              <iframe
-                srcDoc={iframeSrcDoc}
-                title="playground-preview"
-                sandbox="allow-same-origin"
-                className="w-full bg-white"
-                style={{ height: '33vh', minHeight: '200px' }}
-              />
-            </div>
+            <textarea
+              value={code}
+              onChange={(e) => {
+                setCode(e.target.value)
+                if (isCompleted) setIsCompleted(false)
+              }}
+              spellCheck={false}
+              className="w-full h-[200px] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
+              placeholder={placeholder}
+            />
           </div>
         </div>
       )}
