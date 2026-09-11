@@ -890,10 +890,13 @@ function ReactPlayground() {
     }
 
     try {
-      // Транспилируем JSX в JS
+      // Транспилируем JSX в JS без модульной системы
       const transformed = transform(source, {
-        presets: ['react'],
+        presets: [['react', { useBuiltIns: false }]],
         filename: 'user-code.jsx',
+        sourceType: 'script',
+        babelrc: false,
+        configFile: false,
       })
 
       if (!transformed || !transformed.code) {
@@ -901,9 +904,15 @@ function ReactPlayground() {
         return
       }
 
+      // Убираем любые import/export statements
+      let code = transformed.code
+        .replace(/import\s+.*?from\s+['"].*?['"];?/g, '')
+        .replace(/export\s+(default\s+)?/g, '')
+        .replace(/require\s*\([^)]*\);?/g, '')
+
       // Создаём функцию, которая возвращает компонент
       const wrappedCode = `
-        ${transformed.code}
+        ${code}
         return typeof Counter !== 'undefined' ? Counter :
                typeof Hello !== 'undefined' ? Hello :
                typeof TodoList !== 'undefined' ? TodoList :
