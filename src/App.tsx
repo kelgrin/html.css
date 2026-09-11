@@ -503,6 +503,27 @@ const htmlTasks: Task[] = [
     exampleCode: '<button>Нажми меня</button>',
     hint: 'Используй <button>...</button>',
   },
+  {
+    id: 6,
+    title: 'Добавь изображение',
+    description: 'Добавь изображение (img) с src="https://example.com/image.jpg" и alt="Пример"',
+    exampleCode: '<img src="https://example.com/image.jpg" alt="Пример">',
+    hint: 'Используй <img> с атрибутами src и alt',
+  },
+  {
+    id: 7,
+    title: 'Создай форму',
+    description: 'Создай форму (form) с полем ввода (input type="text") и кнопкой отправки',
+    exampleCode: '<form>\n  <input type="text">\n  <button>Отправить</button>\n</form>',
+    hint: 'Используй <form>, <input type="text"> и <button>',
+  },
+  {
+    id: 8,
+    title: 'Добавь таблицу',
+    description: 'Создай таблицу (table) с одной строкой и двумя ячейками',
+    exampleCode: '<table>\n  <tr>\n    <td>Ячейка 1</td>\n    <td>Ячейка 2</td>\n  </tr>\n</table>',
+    hint: 'Используй <table>, <tr> для строки и <td> для ячеек',
+  },
 ]
 
 const cssTasks: Task[] = [
@@ -514,22 +535,22 @@ const cssTasks: Task[] = [
   p { color: red; }
 </style>
 <p>Красный текст</p>`,
-    hint: 'Используй CSS свойство color: red',
+    hint: 'Используй селектор p и свойство color: red',
   },
   {
     id: 2,
     title: 'Фон блока',
-    description: 'Добавь жёлтый фон блоку div',
+    description: 'Добавь жёлтый фон блоку div с классом "box" и padding 20px',
     exampleCode: `<style>
   .box { background-color: yellow; padding: 20px; }
 </style>
 <div class="box">Блок с фоном</div>`,
-    hint: 'Используй background-color: yellow',
+    hint: 'Используй селектор .box (класс), свойства background-color: yellow и padding: 20px',
   },
   {
     id: 3,
     title: 'Flexbox',
-    description: 'Создай flexbox контейнер с тремя элементами в ряд',
+    description: 'Создай flexbox контейнер с классом "container" и тремя элементами с классом "item"',
     exampleCode: `<style>
   .container { display: flex; gap: 10px; }
   .item { background: #4CAF50; color: white; padding: 10px; }
@@ -539,27 +560,63 @@ const cssTasks: Task[] = [
   <div class="item">2</div>
   <div class="item">3</div>
 </div>`,
-    hint: 'Используй display: flex',
+    hint: 'Используй классы .container и .item. Для контейнера: display: flex и gap: 10px. Для элементов: background: #4CAF50, color: white, padding: 10px',
   },
   {
     id: 4,
     title: 'Скруглённые углы',
-    description: 'Сделай у блока скруглённые углы (border-radius: 10px)',
+    description: 'Сделай у блока с классом "box" скруглённые углы 10px, фон #2196F3, белый текст и padding 20px',
     exampleCode: `<style>
   .box { background: #2196F3; color: white; padding: 20px; border-radius: 10px; }
 </style>
 <div class="box">Скруглённый блок</div>`,
-    hint: 'Используй border-radius: 10px',
+    hint: 'Используй класс .box со свойствами: background: #2196F3, color: white, padding: 20px, border-radius: 10px',
   },
   {
     id: 5,
     title: 'Тень',
-    description: 'Добавь тень блоку (box-shadow)',
+    description: 'Добавь тень блоку с классом "card": белый фон, padding 20px и box-shadow 0 4px 6px rgba(0,0,0,0.1)',
     exampleCode: `<style>
   .card { background: white; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 </style>
 <div class="card">Карточка с тенью</div>`,
-    hint: 'Используй box-shadow: 0 4px 6px rgba(0,0,0,0.1)',
+    hint: 'Используй класс .card со свойствами: background: white, padding: 20px, box-shadow: 0 4px 6px rgba(0,0,0,0.1)',
+  },
+  {
+    id: 6,
+    title: 'Центрирование',
+    description: 'Центрируй текст в блоке с классом "centered": height 100px, background #FF9800, белый текст',
+    exampleCode: `<style>
+  .centered { height: 100px; background: #FF9800; color: white; display: flex; align-items: center; justify-content: center; }
+</style>
+<div class="centered">Центр</div>`,
+    hint: 'Используй класс .centered со свойствами: height: 100px, background: #FF9800, color: white, display: flex, align-items: center, justify-content: center',
+  },
+  {
+    id: 7,
+    title: 'Hover эффект',
+    description: 'Создай кнопку с классом "btn": синий фон (#2196F3), белый текст, padding 10px 20px. При наведении фон становится темнее (#1976D2)',
+    exampleCode: `<style>
+  .btn { background: #2196F3; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+  .btn:hover { background: #1976D2; }
+</style>
+<button class="btn">Кнопка</button>`,
+    hint: 'Используй класс .btn со свойствами: background: #2196F3, color: white, padding: 10px 20px, border: none, cursor: pointer. Добавь .btn:hover с background: #1976D2',
+  },
+  {
+    id: 8,
+    title: 'Grid layout',
+    description: 'Создай grid контейнер с классом "grid" (3 колонки, gap 10px) и тремя элементами с классом "cell" (фон #9C27B0, белый текст, padding 20px)',
+    exampleCode: `<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cell { background: #9C27B0; color: white; padding: 20px; }
+</style>
+<div class="grid">
+  <div class="cell">1</div>
+  <div class="cell">2</div>
+  <div class="cell">3</div>
+</div>`,
+    hint: 'Используй классы .grid и .cell. Для .grid: display: grid, grid-template-columns: repeat(3, 1fr), gap: 10px. Для .cell: background: #9C27B0, color: white, padding: 20px',
   },
 ]
 
@@ -567,10 +624,11 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
   const [code, setCode] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
+  const [completedTasks, setCompletedTasks] = useState<Set<number>>(new Set())
 
   const tasks = mode === 'html' ? htmlTasks : cssTasks
   const currentTask = tasks[currentTaskIndex]
+  const isCompleted = completedTasks.has(currentTaskIndex)
 
   const normalizeCode = (str: string): string => {
     return str
@@ -588,17 +646,26 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
     const normalizedExample = normalizeCode(currentTask.exampleCode)
 
     if (normalizedCode === normalizedExample) {
-      setIsCompleted(true)
+      setCompletedTasks(prev => new Set(prev).add(currentTaskIndex))
     } else {
       alert('Код не совпадает с примером. Проверь синтаксис и попробуй снова!')
     }
   }
 
+  const goToTask = (index: number) => {
+    setCurrentTaskIndex(index)
+    setCode('')
+  }
+
   const nextTask = () => {
     if (currentTaskIndex < tasks.length - 1) {
-      setCurrentTaskIndex(currentTaskIndex + 1)
-      setCode('')
-      setIsCompleted(false)
+      goToTask(currentTaskIndex + 1)
+    }
+  }
+
+  const prevTask = () => {
+    if (currentTaskIndex > 0) {
+      goToTask(currentTaskIndex - 1)
     }
   }
 
@@ -647,6 +714,25 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+          </div>
+
+          {/* Навигация между заданиями */}
+          <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center gap-2 overflow-x-auto">
+            {tasks.map((task, index) => (
+              <button
+                key={index}
+                onClick={() => goToTask(index)}
+                className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                  index === currentTaskIndex
+                    ? 'bg-blue-600 text-white scale-110'
+                    : completedTasks.has(index)
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                }`}
+              >
+                {completedTasks.has(index) ? '✓' : task.id}
+              </button>
+            ))}
           </div>
 
           {/* Задание */}
@@ -720,20 +806,35 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
                 <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
                 <span className="ml-1.5">{fileName}</span>
               </div>
-              {isCompleted && currentTaskIndex < tasks.length - 1 && (
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={nextTask}
-                  className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-xs font-medium transition-colors"
+                  onClick={prevTask}
+                  disabled={currentTaskIndex === 0}
+                  className="px-3 py-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded text-xs font-medium transition-colors"
                 >
-                  Следующее задание →
+                  ← Предыдущее
                 </button>
-              )}
+                {isCompleted && currentTaskIndex < tasks.length - 1 && (
+                  <button
+                    onClick={nextTask}
+                    className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-xs font-medium transition-colors"
+                  >
+                    Следующее →
+                  </button>
+                )}
+              </div>
             </div>
             <textarea
               value={code}
               onChange={(e) => {
                 setCode(e.target.value)
-                if (isCompleted) setIsCompleted(false)
+                if (isCompleted) {
+                  setCompletedTasks(prev => {
+                    const newSet = new Set(prev)
+                    newSet.delete(currentTaskIndex)
+                    return newSet
+                  })
+                }
               }}
               spellCheck={false}
               className="w-full h-[200px] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
