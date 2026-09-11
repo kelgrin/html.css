@@ -349,7 +349,7 @@ function FeedbackForm() {
     setTimeout(() => {
       setIsExploding(false)
       setIsExpanded(false)
-    }, 2000)
+    }, 200)
   }
 
   const handleOpen = () => {
