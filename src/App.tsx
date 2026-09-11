@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import CSSGuide from './CSSGuide'
+import ReactGuide from './ReactGuide'
 
 type TagInfo = {
   tag: string
@@ -724,7 +725,7 @@ function HTMLGuide() {
 }
 
 export default function App() {
-  const [activeGuide, setActiveGuide] = useState<'html' | 'css'>('html')
+  const [activeGuide, setActiveGuide] = useState<'html' | 'css' | 'react'>('html')
 
   return (
     <div>
@@ -750,13 +751,25 @@ export default function App() {
         >
           🎨 CSS
         </button>
+        <button
+          onClick={() => setActiveGuide('react')}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+            activeGuide === 'react'
+              ? 'bg-sky-600 text-white'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          ⚛️ React
+        </button>
       </div>
 
       {/* Render active guide */}
-      {activeGuide === 'html' ? <HTMLGuide /> : <CSSGuide />}
+      {activeGuide === 'html' && <HTMLGuide />}
+      {activeGuide === 'css' && <CSSGuide />}
+      {activeGuide === 'react' && <ReactGuide />}
 
-      {/* Floating Playground */}
-      <Playground mode={activeGuide} />
+      {/* Floating Playground (только для HTML и CSS) */}
+      {activeGuide !== 'react' && <Playground mode={activeGuide} />}
 
       {/* Feedback Form */}
       <FeedbackForm />
