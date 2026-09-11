@@ -473,56 +473,55 @@ const htmlTasks: Task[] = [
     title: 'Создай заголовок',
     description: 'Создай заголовок первого уровня (h1) с текстом "Привет, мир!"',
     exampleCode: '<h1>Привет, мир!</h1>',
-    hint: 'Используй тег <h1>...</h1>',
+
   },
   {
     id: 2,
     title: 'Добавь параграф',
     description: 'Создай параграф (p) с любым текстом',
     exampleCode: '<p>Это мой первый параграф.</p>',
-    hint: 'Используй тег <p>...</p>',
+ 
   },
   {
     id: 3,
     title: 'Создай список',
     description: 'Создай маркированный список (ul) с тремя элементами (li)',
     exampleCode: '<ul>\n  <li>Первый</li>\n  <li>Второй</li>\n  <li>Третий</li>\n</ul>',
-    hint: 'Используй <ul> и внутри три <li>',
+
   },
   {
     id: 4,
     title: 'Добавь ссылку',
-    description: 'Создай ссылку (a) с текстом "Кликни" и href="#"',
+    description: 'Создай ссылку (a) с текстом "Кликни",
     exampleCode: '<a href="#">Кликни</a>',
-    hint: 'Используй <a href="...">...</a>',
+
   },
   {
     id: 5,
     title: 'Создай кнопку',
     description: 'Создай кнопку (button) с текстом "Нажми меня"',
     exampleCode: '<button>Нажми меня</button>',
-    hint: 'Используй <button>...</button>',
   },
   {
     id: 6,
     title: 'Добавь изображение',
     description: 'Добавь изображение (img) с src="https://example.com/image.jpg" и alt="Пример"',
     exampleCode: '<img src="https://example.com/image.jpg" alt="Пример">',
-    hint: 'Используй <img> с атрибутами src и alt',
+    
   },
   {
     id: 7,
     title: 'Создай форму',
     description: 'Создай форму (form) с полем ввода (input type="text") и кнопкой отправки',
     exampleCode: '<form>\n  <input type="text">\n  <button>Отправить</button>\n</form>',
-    hint: 'Используй <form>, <input type="text"> и <button>',
+
   },
   {
     id: 8,
     title: 'Добавь таблицу',
     description: 'Создай таблицу (table) с одной строкой и двумя ячейками',
     exampleCode: '<table>\n  <tr>\n    <td>Ячейка 1</td>\n    <td>Ячейка 2</td>\n  </tr>\n</table>',
-    hint: 'Используй <table>, <tr> для строки и <td> для ячеек',
+  
   },
 ]
 
@@ -545,7 +544,7 @@ const cssTasks: Task[] = [
   .box { background-color: yellow; padding: 20px; }
 </style>
 <div class="box">Блок с фоном</div>`,
-    hint: 'Используй селектор .box (класс), свойства background-color: yellow и padding: 20px',
+    hint: 'Используй селектор .box (класс)',
   },
   {
     id: 3,
@@ -560,7 +559,7 @@ const cssTasks: Task[] = [
   <div class="item">2</div>
   <div class="item">3</div>
 </div>`,
-    hint: 'Используй классы .container и .item. Для контейнера: display: flex и gap: 10px. Для элементов: background: #4CAF50, color: white, padding: 10px',
+    hint: 'Используй классы .container и .item. Для контейнера: gap: 10px. Для элементов: background: #4CAF50, color: white, padding: 10px',
   },
   {
     id: 4,
@@ -570,17 +569,17 @@ const cssTasks: Task[] = [
   .box { background: #2196F3; color: white; padding: 20px; border-radius: 10px; }
 </style>
 <div class="box">Скруглённый блок</div>`,
-    hint: 'Используй класс .box со свойствами: background: #2196F3, color: white, padding: 20px, border-radius: 10px',
+    hint: 'Используй класс .box со свойствами: background: #2196F3, color: white, padding: 20px,',
   },
   {
     id: 5,
     title: 'Тень',
-    description: 'Добавь тень блоку с классом "card": белый фон, padding 20px и box-shadow 0 4px 6px rgba(0,0,0,0.1)',
+    description: 'Добавь тень блоку с классом "card": белый фон, padding 20px и ***-****** 0 4px 6px rgba(0,0,0,0.1)',
     exampleCode: `<style>
   .card { background: white; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 </style>
 <div class="card">Карточка с тенью</div>`,
-    hint: 'Используй класс .card со свойствами: background: white, padding: 20px, box-shadow: 0 4px 6px rgba(0,0,0,0.1)',
+    hint: 'Используй класс .card',
   },
   {
     id: 6,
@@ -590,7 +589,7 @@ const cssTasks: Task[] = [
   .centered { height: 100px; background: #FF9800; color: white; display: flex; align-items: center; justify-content: center; }
 </style>
 <div class="centered">Центр</div>`,
-    hint: 'Используй класс .centered со свойствами: height: 100px, background: #FF9800, color: white, display: flex, align-items: center, justify-content: center',
+    hint: 'Используй класс .centered со свойствами: display: flex',
   },
   {
     id: 7,
@@ -601,7 +600,7 @@ const cssTasks: Task[] = [
   .btn:hover { background: #1976D2; }
 </style>
 <button class="btn">Кнопка</button>`,
-    hint: 'Используй класс .btn со свойствами: background: #2196F3, color: white, padding: 10px 20px, border: none, cursor: pointer. Добавь .btn:hover с background: #1976D2',
+    hint: 'Используй класс .btn,
   },
   {
     id: 8,
@@ -844,6 +843,10 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
                     return newSet
                   })
                 }
+              }}
+              onPaste={(e) => {
+                e.preventDefault()
+                alert('⚠️ Копирование кода запрещено! Напишите код самостоятельно для лучшего обучения.')
               }}
               spellCheck={false}
               className="w-full h-[200px] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
