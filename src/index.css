@@ -37,6 +37,54 @@ html.dark body {
   animation: fade-in 0.3s ease-out;
 }
 
+/* Анимация рассыпания формы */
+@keyframes explode {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-15deg) translateY(-100px);
+  }
+}
+
+.animate-explode {
+  animation: explode 1s ease-out forwards;
+}
+
+/* Анимация частиц при рассыпании */
+@keyframes particle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 100px), var(--ty, -100px)) scale(0);
+  }
+}
+
+.animate-particle {
+  animation: particle 1.5s ease-out forwards;
+  --tx: calc((var(--random, 0.5) - 0.5) * 300px);
+  --ty: calc((var(--random, 0.5) - 0.5) * 300px - 100px);
+}
+
+.animate-particle:nth-child(odd) {
+  --tx: calc((var(--random, 0.5) - 0.5) * 400px);
+  --ty: calc((var(--random, 0.5) - 0.5) * 400px - 150px);
+}
+
+.animate-particle:nth-child(3n) {
+  --tx: calc((var(--random, 0.5) - 0.5) * 500px);
+  --ty: calc((var(--random, 0.5) - 0.5) * 500px - 200px);
+}
+
 html {
   scroll-behavior: smooth;
 }

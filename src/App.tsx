@@ -336,25 +336,41 @@ function SectionBlock({ section }: { section: Section }) {
 
 function FeedbackForm() {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isExploding, setIsExploding] = useState(false)
 
   // Вставьте сюда ссылку на вашу Google Form
   // Как получить: откройте Google Form → "Ответить" → "<>" (встроить) → скопируйте src
   const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfVFrwkOJuBadNLX-8Bq3dCfHHcRLWCv7CGtJlWyMFCZhRC-A/viewform?embedded=true"
 
+  const handleClose = () => {
+    setIsExploding(true)
+    // Через 2 секунды "собираем" форму обратно (но не показываем)
+    setTimeout(() => {
+      setIsExploding(false)
+      setIsExpanded(false)
+    }, 2000)
+  }
+
+  const handleOpen = () => {
+    setIsExpanded(true)
+  }
+
   return (
     <>
       {/* Плавающая кнопка слева */}
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={isExpanded ? handleClose : handleOpen}
         className="fixed bottom-6 left-6 z-[200] bg-gradient-to-r from-green-600 to-teal-600 text-white px-5 py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 flex items-center gap-2 font-medium"
       >
         <span className="text-xl">✉️</span>
         <span>{isExpanded ? 'Свернуть' : 'Обратная связь'}</span>
       </button>
 
-      {/* Плавающая панель формы */}
+      {/* Плавающая панель формы с анимацией рассыпания */}
       {isExpanded && (
-        <div className="fixed bottom-20 left-6 z-[190] w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
+        <div className={`fixed bottom-20 left-6 z-[190] w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden ${
+          isExploding ? 'animate-explode' : 'animate-fade-in'
+        }`}>
           {/* Заголовок */}
           <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -362,7 +378,7 @@ function FeedbackForm() {
               <h3 className="text-base font-bold">Обратная связь</h3>
             </div>
             <button
-              onClick={() => setIsExpanded(false)}
+              onClick={handleClose}
               className="text-white hover:bg-white/20 rounded-full p-1.5 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -379,6 +395,25 @@ function FeedbackForm() {
           >
             Загрузка…
           </iframe>
+        </div>
+      )}
+
+      {/* Эффект рассыпания - частицы */}
+      {isExploding && (
+        <div className="fixed bottom-20 left-6 z-[185] pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-3 h-3 rounded-full animate-particle"
+              style={{
+                background: `hsl(${Math.random() * 60 + 140}, 70%, 60%)`,
+                left: `${Math.random() * 400}px`,
+                top: `${Math.random() * 500}px`,
+                animationDelay: `${Math.random() * 0.3}s`,
+                animationDuration: `${1 + Math.random() * 0.5}s`
+              }}
+            />
+          ))}
         </div>
       )}
     </>
