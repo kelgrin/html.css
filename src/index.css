@@ -37,6 +37,45 @@ html.dark body {
   animation: fade-in 0.3s ease-out;
 }
 
+/* Анимация осколков стекла */
+@keyframes shard {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(calc(var(--tx, 0) * 0.3), calc(var(--ty, 0) * 0.3)) rotate(calc(var(--rot, 0) * 0.3)) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 100px), var(--ty, 200px)) rotate(var(--rot, 90deg)) scale(0.3);
+  }
+}
+
+.animate-shard {
+  animation: shard 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 400px);
+  --ty: calc(var(--random-y, 0.5) * 300px + 100px);
+  --rot: calc((var(--random-rot, 0.5) - 0.5) * 360deg);
+}
+
+/* Разные направления для разных осколков */
+.animate-shard:nth-child(3n) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 500px);
+  --ty: calc(var(--random-y, 0.5) * 400px + 150px);
+}
+
+.animate-shard:nth-child(3n+1) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 350px);
+  --ty: calc(var(--random-y, 0.5) * 350px + 120px);
+}
+
+.animate-shard:nth-child(5n) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 600px);
+  --ty: calc(var(--random-y, 0.5) * 450px + 180px);
+}
+
 html {
   scroll-behavior: smooth;
 }
