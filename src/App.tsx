@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CSSGuide from './CSSGuide'
 import ReactGuide from './ReactGuide'
 
@@ -624,11 +624,20 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
   const [code, setCode] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
-  const [completedTasks, setCompletedTasks] = useState<Set<number>>(new Set())
+  const [completedHtmlTasks, setCompletedHtmlTasks] = useState<Set<number>>(new Set())
+  const [completedCssTasks, setCompletedCssTasks] = useState<Set<number>>(new Set())
 
   const tasks = mode === 'html' ? htmlTasks : cssTasks
   const currentTask = tasks[currentTaskIndex]
+  const completedTasks = mode === 'html' ? completedHtmlTasks : completedCssTasks
+  const setCompletedTasks = mode === 'html' ? setCompletedHtmlTasks : setCompletedCssTasks
   const isCompleted = completedTasks.has(currentTaskIndex)
+
+  // Сброс индекса и кода при смене режима
+  useEffect(() => {
+    setCurrentTaskIndex(0)
+    setCode('')
+  }, [mode])
 
   const normalizeCode = (str: string): string => {
     return str
