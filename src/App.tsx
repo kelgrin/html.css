@@ -492,9 +492,9 @@ const htmlTasks: Task[] = [
   {
     id: 4,
     title: 'Добавь ссылку',
-    description: 'Создай ссылку (a) с текстом "Кликни",
+    description: 'Создай ссылку (a) с текстом "Кликни"',
     exampleCode: '<a href="#">Кликни</a>',
-
+    hint: 'Используй тег <a> с атрибутом href',
   },
   {
     id: 5,
@@ -600,7 +600,7 @@ const cssTasks: Task[] = [
   .btn:hover { background: #1976D2; }
 </style>
 <button class="btn">Кнопка</button>`,
-    hint: 'Используй класс .btn,
+    hint: 'Используй класс .btn со свойствами: background, color, padding, border, cursor. Добавь :hover для изменения фона',
   },
   {
     id: 8,
