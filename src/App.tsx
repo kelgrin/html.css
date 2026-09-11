@@ -355,6 +355,34 @@ function FeedbackForm() {
     setIsExpanded(true)
   }
 
+  // Генерируем осколки стекла
+  const generateShards = () => {
+    const shards = []
+    const rows = 5
+    const cols = 5
+    const shardWidth = 400 / cols
+    const shardHeight = 500 / rows
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        shards.push({
+          id: `${row}-${col}`,
+          left: col * shardWidth,
+          top: row * shardHeight,
+          width: shardWidth,
+          height: shardHeight,
+          delay: Math.random() * 0.2,
+          rotation: (Math.random() - 0.5) * 180,
+          translateX: (Math.random() - 0.5) * 300,
+          translateY: Math.random() * 200 + 50,
+        })
+      }
+    }
+    return shards
+  }
+
+  const shards = generateShards()
+
   return (
     <>
       {/* Плавающая кнопка слева */}
@@ -366,11 +394,9 @@ function FeedbackForm() {
         <span>{isExpanded ? 'Свернуть' : 'Обратная связь'}</span>
       </button>
 
-      {/* Плавающая панель формы с анимацией рассыпания */}
-      {isExpanded && (
-        <div className={`fixed bottom-20 left-6 z-[190] w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden ${
-          isExploding ? 'animate-explode' : 'animate-fade-in'
-        }`}>
+      {/* Плавающая панель формы */}
+      {isExpanded && !isExploding && (
+        <div className="fixed bottom-20 left-6 z-[190] w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
           {/* Заголовок */}
           <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -398,20 +424,32 @@ function FeedbackForm() {
         </div>
       )}
 
-      {/* Эффект рассыпания - частицы */}
+      {/* Эффект разбивающегося стекла */}
       {isExploding && (
-        <div className="fixed bottom-20 left-6 z-[185] pointer-events-none">
-          {[...Array(20)].map((_, i) => (
+        <div className="fixed bottom-20 left-6 z-[185] pointer-events-none w-[400px] h-[500px]">
+          {shards.map((shard) => (
             <div
-              key={i}
-              className="absolute w-3 h-3 rounded-full animate-particle"
+              key={shard.id}
+              className="absolute animate-shard"
               style={{
-                background: `hsl(${Math.random() * 60 + 140}, 70%, 60%)`,
-                left: `${Math.random() * 400}px`,
-                top: `${Math.random() * 500}px`,
-                animationDelay: `${Math.random() * 0.3}s`,
-                animationDuration: `${1 + Math.random() * 0.5}s`
-              }}
+                left: `${shard.left}px`,
+                top: `${shard.top}px`,
+                width: `${shard.width}px`,
+                height: `${shard.height}px`,
+                animationDelay: `${shard.delay}s`,
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(200,230,220,0.7) 100%)',
+                border: '1px solid rgba(255,255,255,0.8)',
+                boxShadow: 'inset 0 0 10px rgba(255,255,255,0.5), 0 0 5px rgba(0,0,0,0.1)',
+                clipPath: `polygon(
+                  ${Math.random() * 20}% ${Math.random() * 20}%, 
+                  ${80 + Math.random() * 20}% ${Math.random() * 20}%, 
+                  ${80 + Math.random() * 20}% ${80 + Math.random() * 20}%, 
+                  ${Math.random() * 20}% ${80 + Math.random() * 20}%
+                )`,
+                '--random-x': Math.random(),
+                '--random-y': Math.random(),
+                '--random-rot': Math.random(),
+              } as React.CSSProperties}
             />
           ))}
         </div>

@@ -37,52 +37,43 @@ html.dark body {
   animation: fade-in 0.3s ease-out;
 }
 
-/* Анимация рассыпания формы */
-@keyframes explode {
+/* Анимация осколков стекла */
+@keyframes shard {
   0% {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg) scale(1);
   }
-  30% {
+  20% {
     opacity: 1;
-    transform: scale(1.1) rotate(2deg);
+    transform: translate(calc(var(--tx, 0) * 0.3), calc(var(--ty, 0) * 0.3)) rotate(calc(var(--rot, 0) * 0.3)) scale(0.95);
   }
   100% {
     opacity: 0;
-    transform: scale(0.3) rotate(-15deg) translateY(-100px);
+    transform: translate(var(--tx, 100px), var(--ty, 200px)) rotate(var(--rot, 90deg)) scale(0.3);
   }
 }
 
-.animate-explode {
-  animation: explode 1s ease-out forwards;
+.animate-shard {
+  animation: shard 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 400px);
+  --ty: calc(var(--random-y, 0.5) * 300px + 100px);
+  --rot: calc((var(--random-rot, 0.5) - 0.5) * 360deg);
 }
 
-/* Анимация частиц при рассыпании */
-@keyframes particle {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--tx, 100px), var(--ty, -100px)) scale(0);
-  }
+/* Разные направления для разных осколков */
+.animate-shard:nth-child(3n) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 500px);
+  --ty: calc(var(--random-y, 0.5) * 400px + 150px);
 }
 
-.animate-particle {
-  animation: particle 1.5s ease-out forwards;
-  --tx: calc((var(--random, 0.5) - 0.5) * 300px);
-  --ty: calc((var(--random, 0.5) - 0.5) * 300px - 100px);
+.animate-shard:nth-child(3n+1) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 350px);
+  --ty: calc(var(--random-y, 0.5) * 350px + 120px);
 }
 
-.animate-particle:nth-child(odd) {
-  --tx: calc((var(--random, 0.5) - 0.5) * 400px);
-  --ty: calc((var(--random, 0.5) - 0.5) * 400px - 150px);
-}
-
-.animate-particle:nth-child(3n) {
-  --tx: calc((var(--random, 0.5) - 0.5) * 500px);
-  --ty: calc((var(--random, 0.5) - 0.5) * 500px - 200px);
+.animate-shard:nth-child(5n) {
+  --tx: calc((var(--random-x, 0.5) - 0.5) * 600px);
+  --ty: calc(var(--random-y, 0.5) * 450px + 180px);
 }
 
 html {
