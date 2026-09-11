@@ -425,10 +425,6 @@ function FeedbackForm() {
             >
               Отправить
             </button>
-
-            <p className="text-xs text-gray-500 text-center">
-              Письмо будет отправлено на kelgrin@mail.ru
-            </p>
           </form>
         </div>
       )}
