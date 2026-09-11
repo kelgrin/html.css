@@ -339,7 +339,7 @@ function FeedbackForm() {
 
   // Вставьте сюда ссылку на вашу Google Form
   // Как получить: откройте Google Form → "Ответить" → "<>" (встроить) → скопируйте src
-  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true"
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfVFrwkOJuBadNLX-8Bq3dCfHHcRLWCv7CGtJlWyMFCZhRC-A/viewform?embedded=true"
 
   return (
     <>
