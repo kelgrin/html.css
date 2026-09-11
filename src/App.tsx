@@ -336,28 +336,10 @@ function SectionBlock({ section }: { section: Section }) {
 
 function FeedbackForm() {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [name, setName] = useState('')
-  const [message, setMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!name.trim() || !message.trim()) {
-      alert('Пожалуйста, заполните все поля')
-      return
-    }
-
-    const subject = encodeURIComponent(`Обратная связь от ${name}`)
-    const body = encodeURIComponent(`Имя: ${name}\n\nСообщение:\n${message}`)
-    const mailtoLink = `mailto:kelgrin@mail.ru?subject=${subject}&body=${body}`
-    
-    window.location.href = mailtoLink
-    
-    // Очистка формы после отправки
-    setName('')
-    setMessage('')
-    setIsExpanded(false)
-  }
+  // Вставьте сюда ссылку на вашу Google Form
+  // Как получить: откройте Google Form → "Ответить" → "<>" (встроить) → скопируйте src
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true"
 
   return (
     <>
@@ -372,7 +354,7 @@ function FeedbackForm() {
 
       {/* Плавающая панель формы */}
       {isExpanded && (
-        <div className="fixed bottom-20 left-6 z-[190] w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
+        <div className="fixed bottom-20 left-6 z-[190] w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
           {/* Заголовок */}
           <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -389,43 +371,14 @@ function FeedbackForm() {
             </button>
           </div>
 
-          {/* Форма */}
-          <form onSubmit={handleSubmit} className="p-4 space-y-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Имя
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ваше имя"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Сообщение
-              </label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Ваше сообщение..."
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2.5 rounded-lg font-medium hover:from-green-700 hover:to-teal-700 transition-all duration-300 shadow-md hover:shadow-lg"
-            >
-              Отправить
-            </button>
-          </form>
+          {/* Google Form iframe */}
+          <iframe
+            src={GOOGLE_FORM_URL}
+            className="w-full h-[calc(100%-52px)] border-0"
+            title="Google Form"
+          >
+            Загрузка…
+          </iframe>
         </div>
       )}
     </>
