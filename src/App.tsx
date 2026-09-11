@@ -334,6 +334,108 @@ function SectionBlock({ section }: { section: Section }) {
   )
 }
 
+function FeedbackForm() {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [name, setName] = useState('')
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!name.trim() || !message.trim()) {
+      alert('Пожалуйста, заполните все поля')
+      return
+    }
+
+    const subject = encodeURIComponent(`Обратная связь от ${name}`)
+    const body = encodeURIComponent(`Имя: ${name}\n\nСообщение:\n${message}`)
+    const mailtoLink = `mailto:kelgrin@mail.ru?subject=${subject}&body=${body}`
+    
+    window.location.href = mailtoLink
+    
+    // Очистка формы после отправки
+    setName('')
+    setMessage('')
+    setIsExpanded(false)
+  }
+
+  return (
+    <>
+      {/* Плавающая кнопка слева */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="fixed bottom-6 left-6 z-[200] bg-gradient-to-r from-green-600 to-teal-600 text-white px-5 py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 flex items-center gap-2 font-medium"
+      >
+        <span className="text-xl">✉️</span>
+        <span>{isExpanded ? 'Свернуть' : 'Обратная связь'}</span>
+      </button>
+
+      {/* Плавающая панель формы */}
+      {isExpanded && (
+        <div className="fixed bottom-20 left-6 z-[190] w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in">
+          {/* Заголовок */}
+          <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">✉️</span>
+              <h3 className="text-base font-bold">Обратная связь</h3>
+            </div>
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="text-white hover:bg-white/20 rounded-full p-1.5 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Форма */}
+          <form onSubmit={handleSubmit} className="p-4 space-y-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Имя
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Ваше имя"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Сообщение
+              </label>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Ваше сообщение..."
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2.5 rounded-lg font-medium hover:from-green-700 hover:to-teal-700 transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              Отправить
+            </button>
+
+            <p className="text-xs text-gray-500 text-center">
+              Письмо будет отправлено на kelgrin@mail.ru
+            </p>
+          </form>
+        </div>
+      )}
+    </>
+  )
+}
+
 function Playground({ mode }: { mode: 'html' | 'css' }) {
   const [htmlCode, setHtmlCode] = useState('<h1>Привет, мир!</h1>\n<p>Попробуй написать свой HTML здесь.</p>')
   const [cssCode, setCssCode] = useState(`<style>
@@ -633,6 +735,9 @@ export default function App() {
 
       {/* Floating Playground */}
       <Playground mode={activeGuide} />
+
+      {/* Feedback Form */}
+      <FeedbackForm />
     </div>
   )
 }
