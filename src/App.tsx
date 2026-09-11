@@ -572,10 +572,25 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
   const tasks = mode === 'html' ? htmlTasks : cssTasks
   const currentTask = tasks[currentTaskIndex]
 
+  const normalizeCode = (str: string): string => {
+    return str
+      .replace(/\s+/g, '') // Убираем все пробелы и переносы
+      .toLowerCase() // Приводим к нижнему регистру
+  }
+
   const checkSolution = () => {
-    // Простая проверка: если код не пустой и содержит ключевые элементы
-    if (code.trim().length > 0) {
+    if (!code.trim()) {
+      alert('Напиши код перед проверкой!')
+      return
+    }
+
+    const normalizedCode = normalizeCode(code)
+    const normalizedExample = normalizeCode(currentTask.exampleCode)
+
+    if (normalizedCode === normalizedExample) {
       setIsCompleted(true)
+    } else {
+      alert('Код не совпадает с примером. Проверь синтаксис и попробуй снова!')
     }
   }
 

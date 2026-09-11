@@ -870,12 +870,86 @@ function ReactPlayground() {
 
   const currentTask = reactTasks[currentTaskIndex]
 
-  const checkSolution = () => {
-    if (code.trim().length > 0) {
-      compileAndRun(code)
-      if (output.type === 'success') {
-        setIsCompleted(true)
+  const normalizeCode = (str: string): string => {
+    return str
+      .replace(/\s+/g, '') // Убираем все пробелы и переносы
+      .toLowerCase() // Приводим к нижнему регистру
+  }
+
+  const tryCompile = (source: string): { type: 'success'; element: React.ReactNode } | { type: 'error'; message: string } => {
+    if (!source.trim()) {
+      return { type: 'success', element: null }
+    }
+
+    try {
+      const transformed = transform(source, {
+        presets: ['react'],
+        filename: 'user-code.jsx',
+        sourceType: 'script',
+        babelrc: false,
+        configFile: false,
+      })
+
+      if (!transformed || !transformed.code) {
+        return { type: 'error', message: 'Не удалось скомпилировать код' }
       }
+
+      let code = transformed.code
+        .replace(/import\s+.*?from\s+['"].*?['"];?/g, '')
+        .replace(/export\s+(default\s+)?/g, '')
+        .replace(/require\s*\([^)]*\);?/g, '')
+
+      const wrappedCode = `
+        ${code}
+        return typeof Counter !== 'undefined' ? Counter :
+               typeof Hello !== 'undefined' ? Hello :
+               typeof TodoList !== 'undefined' ? TodoList :
+               typeof App !== 'undefined' ? App : null;
+      `
+
+      const factory = new Function('React', wrappedCode)
+      const Component = factory((window as any).React)
+
+      if (!Component) {
+        return {
+          type: 'error',
+          message: 'Компонент не найден. Назовите его Counter, Hello, TodoList или App.',
+        }
+      }
+
+      return { type: 'success', element: <Component /> }
+    } catch (err: any) {
+      return {
+        type: 'error',
+        message: err.message || 'Ошибка компиляции',
+      }
+    }
+  }
+
+  const checkSolution = () => {
+    if (!code.trim()) {
+      alert('Напиши код перед проверкой!')
+      return
+    }
+
+    // Компилируем код и получаем результат
+    const result = tryCompile(code)
+    setOutput(result)
+
+    // Проверяем, что код скомпилировался без ошибок
+    if (result.type === 'error') {
+      alert('В коде есть синтаксическая ошибка. Проверь код и попробуй снова!')
+      return
+    }
+
+    // Строгая посимвольная проверка
+    const normalizedCode = normalizeCode(code)
+    const normalizedExample = normalizeCode(currentTask.exampleCode)
+
+    if (normalizedCode === normalizedExample) {
+      setIsCompleted(true)
+    } else {
+      alert('Код не совпадает с примером. Проверь синтаксис и попробуй снова!')
     }
   }
 
@@ -889,60 +963,8 @@ function ReactPlayground() {
   }
 
   const compileAndRun = (source: string) => {
-    if (!source.trim()) {
-      setOutput({ type: 'success', element: null })
-      return
-    }
-
-    try {
-      // Транспилируем JSX в JS без модульной системы
-      const transformed = transform(source, {
-        presets: ['react'],
-        filename: 'user-code.jsx',
-        sourceType: 'script',
-        babelrc: false,
-        configFile: false,
-      })
-
-      if (!transformed || !transformed.code) {
-        setOutput({ type: 'error', message: 'Не удалось скомпилировать код' })
-        return
-      }
-
-      // Убираем любые import/export statements
-      let code = transformed.code
-        .replace(/import\s+.*?from\s+['"].*?['"];?/g, '')
-        .replace(/export\s+(default\s+)?/g, '')
-        .replace(/require\s*\([^)]*\);?/g, '')
-
-      // Создаём функцию, которая возвращает компонент
-      const wrappedCode = `
-        ${code}
-        return typeof Counter !== 'undefined' ? Counter :
-               typeof Hello !== 'undefined' ? Hello :
-               typeof TodoList !== 'undefined' ? TodoList :
-               typeof App !== 'undefined' ? App : null;
-      `
-
-      // eslint-disable-next-line no-new-func
-      const factory = new Function('React', wrappedCode)
-      const Component = factory((window as any).React)
-
-      if (!Component) {
-        setOutput({
-          type: 'error',
-          message: 'Компонент не найден. Назовите его Counter, Hello, TodoList или App.',
-        })
-        return
-      }
-
-      setOutput({ type: 'success', element: <Component /> })
-    } catch (err: any) {
-      setOutput({
-        type: 'error',
-        message: err.message || 'Ошибка компиляции',
-      })
-    }
+    const result = tryCompile(source)
+    setOutput(result)
   }
 
   // Автокомпиляция при изменении кода
