@@ -845,6 +845,10 @@ function Playground({ mode }: { mode: 'html' | 'css' }) {
                   })
                 }
               }}
+              onPaste={(e) => {
+                e.preventDefault()
+                alert('⚠️ Копирование кода запрещено! Напишите код самостоятельно для лучшего обучения.')
+              }}
               spellCheck={false}
               className="w-full h-[200px] p-3 font-mono text-xs bg-gray-900 text-green-400 outline-none resize-none"
               placeholder={placeholder}
