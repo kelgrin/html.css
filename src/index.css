@@ -79,3 +79,80 @@ html.dark body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Анимации для спрайтов */
+@keyframes float-1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(100px, 50px) rotate(90deg);
+  }
+  50% {
+    transform: translate(200px, 0) rotate(180deg);
+  }
+  75% {
+    transform: translate(100px, -50px) rotate(270deg);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-80px, 60px) rotate(-90deg);
+  }
+  50% {
+    transform: translate(-150px, 0) rotate(-180deg);
+  }
+  75% {
+    transform: translate(-80px, -60px) rotate(-270deg);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(120px, -80px) scale(1.2);
+  }
+  66% {
+    transform: translate(-50px, -40px) scale(0.8);
+  }
+}
+
+@keyframes float-4 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(-100px, 40px) rotate(72deg);
+  }
+  40% {
+    transform: translate(-180px, -20px) rotate(144deg);
+  }
+  60% {
+    transform: translate(-120px, -80px) rotate(216deg);
+  }
+  80% {
+    transform: translate(-50px, -40px) rotate(288deg);
+  }
+}
+
+.animate-float-1 {
+  animation: float-1 15s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 18s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 20s ease-in-out infinite;
+}
+
+.animate-float-4 {
+  animation: float-4 22s ease-in-out infinite;
+}
